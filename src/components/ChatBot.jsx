@@ -74,7 +74,7 @@ Hardware / IoT:
 Soft Skills:
 - Problem-solving
 - Team collaboration
-- Critical thinking
+- Critical and logical thinking
 - Adaptability
 
 ------------------------
