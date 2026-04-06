@@ -1,4 +1,4 @@
-import { useTheme } from './hooks/useTheme'
+import useTheme  from './hooks/useTheme'
 import Navbar from './components/sections/Navbar'
 import Hero from './components/sections/Hero'
 import About from './components/sections/About'
