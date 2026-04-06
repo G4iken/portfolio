@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+  @apply font-body;
+  background-color: #050810;
+  color: #e2e8f0;
+  overflow-x: hidden;
+  }
+
+  ::selection {
+    @apply bg-cyber-500/30 text-cyber-300;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-void-800;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-cyber-700 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-cyber-500;
+  }
+}
+
+@layer utilities {
+  .glow-text {
+    text-shadow: 0 0 20px rgba(18, 184, 148, 0.5), 0 0 40px rgba(18, 184, 148, 0.2);
+  }
+
+  .glow-border {
+    box-shadow: 0 0 0 1px rgba(18, 184, 148, 0.3), 0 0 20px rgba(18, 184, 148, 0.1);
+  }
+
+  .glow-border-hover {
+    transition: box-shadow 0.3s ease;
+  }
+
+  .glow-border-hover:hover {
+    box-shadow: 0 0 0 1px rgba(18, 184, 148, 0.6), 0 0 30px rgba(18, 184, 148, 0.2), inset 0 0 20px rgba(18, 184, 148, 0.05);
+  }
+
+  .glass {
+    backdrop-filter: blur(16px) saturate(180%);
+    background: rgba(9, 13, 24, 0.7);
+    border: 1px solid rgba(18, 184, 148, 0.12);
+  }
+
+  .glass-light {
+    backdrop-filter: blur(16px) saturate(180%);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(18, 184, 148, 0.2);
+  }
+
+  .noise-overlay::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  .clip-corner {
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+
+  .clip-corner-lg {
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  }
+}
+
+/* Light mode overrides */
+html:not(.dark) body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+html:not(.dark) .glass {
+  background: rgba(248, 250, 252, 0.85);
+  border-color: rgba(18, 184, 148, 0.2);
+}
