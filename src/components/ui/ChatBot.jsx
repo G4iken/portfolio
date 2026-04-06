@@ -49,35 +49,20 @@ export default function ChatBot() {
     setLoading(true)
 
     try {
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{
-              parts: [{
-                text: `You are an AI assistant for Jeremy Ebardo's portfolio website.
-Jeremy is a 4th-year Computer Engineering student at Bulacan State University, Philippines.
-His skills: C, C++, Java, Python, PHP, JavaScript, ESP32, IoT, Embedded Systems, Web Development.
-His GitHub: github.com/G4iken
-His email: ebardojeremyelmo@gmail.com
-His location: Bulacan, Philippines
+      const res = await fetch("/api/chat", {
+  method: "POST",
+  body: JSON.stringify({ message: input }),
+});
 
-GitHub repos:
-${repos.map(r => `- ${r.name}: ${r.description || 'No description'}`).join('\n')}
+const data = await res.json();
 
-Be professional, concise, and friendly. Only answer questions about Jeremy.
+let reply = "No response";
 
-User: ${input.trim()}`
-              }]
-            }]
-          })
-        }
-      )
-      const data = await res.json()
-      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't get a response."
-      setMessages([...updated, { role: 'bot', text: reply }])
+if (data.candidates) {
+  reply = data.candidates[0]?.content?.parts?.[0]?.text;
+} else if (data.error) {
+  reply = data.error;
+}
     } catch {
       setMessages([...updated, { role: 'bot', text: 'Error fetching response. Please try again.' }])
     } finally {

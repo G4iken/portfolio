@@ -51,10 +51,10 @@ export default function Hero() {
           className="mb-4"
         >
           <h1 className="font-display text-5xl sm:text-7xl md:text-8xl font-extrabold leading-none tracking-tight">
-            <span className="text-white dark:text-white text-slate-900">Jeremy Elmo</span>
+            <span className="text-white dark:text-white text-slate-900">Jeremy</span>
             <br />
             <span className="relative">
-              <span className="text-cyber-400 glow-text">Dimagiba Ebardo</span>
+              <span className="text-cyber-400 glow-text">Ebardo</span>
             </span>
           </h1>
         </motion.div>
