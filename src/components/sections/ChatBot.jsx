@@ -1,11 +1,51 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function ChatBot() {
   const [messages, setMessages] = useState([
-    { role: "bot", text: "Hi! Ask me about Jeremy's projects 👨‍💻" }
+    { role: "bot", text: "Hi! Ask me anything about Jeremy 👨‍💻" }
   ]);
   const [input, setInput] = useState("");
+  const [repos, setRepos] = useState([]);
+  const messagesEndRef = useRef(null);
+
   const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+  const GITHUB_USERNAME = "G4iken";
+
+  // 🔗 Fetch GitHub repos
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos`)
+      .then(res => res.json())
+      .then(data => {
+        const formatted = data.slice(0, 5).map(repo => ({
+          name: repo.name,
+          description: repo.description
+        }));
+        setRepos(formatted);
+      });
+  }, []);
+
+  // 🔽 Auto scroll
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  // 🎤 Voice Input
+  const startVoice = () => {
+    const recognition = new window.webkitSpeechRecognition();
+    recognition.lang = "en-US";
+    recognition.start();
+
+    recognition.onresult = (event) => {
+      const speech = event.results[0][0].transcript;
+      setInput(speech);
+    };
+  };
+
+  // 🔊 Speak response
+  const speak = (text) => {
+    const speech = new SpeechSynthesisUtterance(text);
+    speechSynthesis.speak(speech);
+  };
 
   const sendMessage = async () => {
     if (!input) return;
@@ -19,120 +59,24 @@ export default function ChatBot() {
         `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             contents: [
               {
-                role: "user",
                 parts: [
                   {
                     text: `
-You are an AI assistant for Jeremy Elmo D. Ebardo's professional portfolio website.
+                      You are an AI assistant for Jeremy Ebardo's portfolio.
 
-Your job is to answer questions from recruiters, employers, and visitors about Jeremy. 
-Always respond clearly, professionally, and confidently. Do not make up information that is not listed here.
+                      Use the following GitHub projects as reference:
+                      ${repos.map(r => `- ${r.name}: ${r.description}`).join("\n")}
 
-------------------------
-PERSONAL INFORMATION
-------------------------
-Name: Jeremy Elmo D. Ebardo
-Location: Bulacan, Philippines
-Role: Computer Engineering Student / Aspiring Software & IoT Developer
+                      Jeremy's skills include:
+                      C, Java, Python, PHP, JavaScript, ESP32, Web Development, IoT Systems
 
-------------------------
-SUMMARY
-------------------------
-Jeremy is experienced in designing and implementing both software and hardware systems. 
-He has strong problem-solving skills, teamwork experience, and the ability to develop efficient and optimized solutions. 
-He focuses on real-world engineering applications combining web development and embedded systems.
+                      Be professional, concise, and helpful.
 
-------------------------
-EDUCATION
-------------------------
-- Bachelor of Science in Computer Engineering
-  Bulacan State University (2022 - Present)
-
-- STEM Strand
-  Dr. Yanga’s Colleges Inc. (2020 - 2022)
-  - Honor Student
-  - Academic Contest 1st Place
-
-------------------------
-TECHNICAL SKILLS
-------------------------
-Programming Languages:
-- C, C++, Java, Python, PHP, JavaScript
-
-Web Development:
-- HTML, Tailwind CSS, MySQL
-
-Hardware / IoT:
-- ESP32, Embedded Systems, Circuit Design
-
-Soft Skills:
-- Problem-solving
-- Team collaboration
-- Critical and logical thinking
-- Adaptability
-
-------------------------
-PROJECTS
-------------------------
-
-1. Fleur-c-Print
-- A printing shop web application
-- Built using PHP, MySQL, Tailwind CSS, and JavaScript
-- Features order management and user interaction
-
-2. Aegis Smart Lock
-- IoT-based smart lock system using ESP32
-- Developed using C++
-- Focused on security and embedded systems integration
-
-3. Slot Machine Web App
-- Web-based game with animations and bonus system
-- Uses PHP, JavaScript, MySQL
-- Includes betting system, auto-spin, and UI effects
-
-4. Blog Posting Website
-- Full-stack blog system
-- Built with PHP, Tailwind CSS, JavaScript, MySQL
-
-5. ATM Banking System
-- Developed in C language
-- Simulates banking operations
-
-6. Java Numerical Methods Project
-- Implements mathematical computation algorithms
-
-7. Ping Pong Game
-- Developed using Python
-
-8. Scribble Jump Game
-- Java-based platform game inspired by Doodle Jump
-
-9. Fire Alarm Circuit System
-- Hardware-based safety system
-
-10. SAP-1
-- Basic computer architecture project
-
-11. Bioplastic Production (Thesis)
-- Research-focused engineering project
-
-------------------------
-INSTRUCTIONS
-------------------------
-- Answer questions only using the information above
-- If asked about experience, highlight both software and hardware strengths
-- If asked about projects, explain clearly and professionally
-- If asked why hire Jeremy, emphasize versatility (web + IoT)
-- Keep answers concise but informative
-- Be confident and professional
-
-User question: ${input}
+                      User question: ${input}
 `
                   }
                 ]
@@ -143,12 +87,11 @@ User question: ${input}
       );
 
       const data = await res.json();
-
       const reply =
-        data.candidates?.[0]?.content?.parts?.[0]?.text ||
-        "No response";
+        data.candidates?.[0]?.content?.parts?.[0]?.text || "No response";
 
       setMessages([...updatedMessages, { role: "bot", text: reply }]);
+      speak(reply); // 🔊 voice output
     } catch (err) {
       setMessages([
         ...updatedMessages,
@@ -158,32 +101,54 @@ User question: ${input}
   };
 
   return (
-    <div className="fixed bottom-5 right-5 w-80 bg-black/70 backdrop-blur-xl border border-pink-500/30 p-4 rounded-2xl shadow-xl">
-      <div className="h-64 overflow-y-auto text-sm mb-2 space-y-2">
+    <div className="fixed bottom-5 right-5 w-96 h-[500px] bg-[#0d0d0d] border border-gray-700 rounded-2xl shadow-2xl flex flex-col">
+
+      {/* Header */}
+      <div className="p-3 border-b border-gray-700 font-semibold text-white">
+        Jeremy AI Assistant
+      </div>
+
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto p-3 space-y-3 text-sm">
         {messages.map((msg, i) => (
           <div
             key={i}
-            className={msg.role === "user" ? "text-right" : "text-left"}
+            className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
           >
-            <span className="inline-block px-3 py-2 rounded-lg bg-gray-800">
+            <div
+              className={`px-3 py-2 rounded-xl max-w-[75%] ${
+                msg.role === "user"
+                  ? "bg-pink-600 text-white"
+                  : "bg-gray-800 text-gray-200"
+              }`}
+            >
               {msg.text}
-            </span>
+            </div>
           </div>
         ))}
+
+        <div ref={messagesEndRef} />
       </div>
 
-      <div className="flex gap-2">
+      {/* Input */}
+      <div className="p-3 border-t border-gray-700 flex gap-2">
         <input
           className="flex-1 p-2 rounded bg-gray-900 text-white outline-none"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask something..."
+          placeholder="Ask about my projects..."
         />
+        <button
+          onClick={startVoice}
+          className="bg-gray-700 px-3 rounded"
+        >
+          🎤
+        </button>
         <button
           onClick={sendMessage}
           className="bg-pink-500 hover:bg-pink-600 px-3 rounded text-white"
         >
-          Send
+          ➤
         </button>
       </div>
     </div>
