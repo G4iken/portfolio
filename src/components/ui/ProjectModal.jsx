@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Github, ExternalLink } from 'lucide-react'
+import { X, ExternalLink } from 'lucide-react'
 import { useEffect } from 'react'
 
 export default function ProjectModal({ project, onClose }) {
@@ -82,19 +82,6 @@ export default function ProjectModal({ project, onClose }) {
                   </span>
                 ))}
               </div>
-            </div>
-
-            {/* Actions */}
-            <div className="flex gap-3">
-              <a
-                href="https://github.com/jeremyebardo"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-2.5 font-mono text-sm text-slate-300 border border-void-500 rounded-lg hover:border-slate-400 hover:text-white transition-all"
-              >
-                <Github size={14} />
-                View Code
-              </a>
             </div>
           </div>
         </motion.div>

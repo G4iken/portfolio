@@ -87,7 +87,7 @@ export default function Footer() {
                 className="flex items-center gap-3 text-slate-400 hover:text-cyber-400 transition-colors group"
               >
                 <Github size={15} className="group-hover:text-cyber-400" />
-                <span className="text-sm font-mono">github.com/jeremyebardo</span>
+                <span className="text-sm font-mono">github.com/G4iken</span>
               </a>
             </div>
           </motion.div>

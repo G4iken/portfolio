@@ -17,7 +17,7 @@ const INFO_CARDS = [
   {
     icon: <Github size={20} />,
     label: 'GitHub',
-    value: 'github.com/jeremyebardo',
+    value: 'github.com/G4iken',
     href: profile.github,
     color: 'text-violet-400',
     bg: 'bg-violet-500/10 border-violet-500/25',
