@@ -55,15 +55,19 @@ export default function ChatBot() {
 });
 
 const data = await res.json();
+console.log("API RESPONSE:", data); // 👈 MUST ADD
 
-let reply = "No response";
+let reply = "";
 
-if (data.candidates) {
+if (data.candidates && data.candidates.length > 0) {
   reply = data.candidates[0]?.content?.parts?.[0]?.text;
 } else if (data.error) {
-  reply = data.error;
+  reply = "Error: " + data.error;
+} else {
+  reply = "No response from AI";
 }
-    } catch {
+
+setMessages([...updatedMessages, { role: "bot", text: reply }]);} catch {
       setMessages([...updated, { role: 'bot', text: 'Error fetching response. Please try again.' }])
     } finally {
       setLoading(false)
