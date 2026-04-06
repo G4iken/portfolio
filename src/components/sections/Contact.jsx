@@ -84,7 +84,7 @@ export default function Contact() {
               className="text-slate-400 leading-relaxed mb-10"
             >
               I'm currently a 4th-year Computer Engineering student actively looking for internships,
-              part-time roles, or collaborative projects in web development and IoT. Whether you have
+              part-time roles, or collaborative projects in web development, UI/UX, Embedded and IoT. Whether you have
               a question about my work or a potential opportunity — let's talk.
             </motion.p>
 
