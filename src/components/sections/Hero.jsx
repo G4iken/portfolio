@@ -107,13 +107,13 @@ export default function Hero() {
             </span>
           </button>
 
-          <a
-            href="mailto:ebardojeremyelmo@gmail.com"
+          <button
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             className="px-7 py-3 font-mono text-sm text-cyber-400 border border-cyber-500/50 clip-corner hover:bg-cyber-500/10 hover:border-cyber-400 transition-all duration-200 flex items-center gap-2"
           >
-            <Mail size={14} />
+          <Mail size={14} />
             Contact Me
-          </a>
+          </button>
 
           <a
             href={profile.github}
