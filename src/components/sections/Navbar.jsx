@@ -79,12 +79,12 @@ export default function Navbar({ isDark, toggleTheme }) {
               {isDark ? <Sun size={18} /> : <Moon size={18} />}
             </button>
 
-            <a
-              href="mailto:ebardojeremyelmo@gmail.com"
+            <button
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               className="hidden md:flex items-center gap-2 px-4 py-1.5 font-mono text-xs text-cyber-400 border border-cyber-500/40 rounded clip-corner hover:bg-cyber-500/10 hover:border-cyber-400 transition-all"
             >
               Hire Me
-            </a>
+            </button>
 
             <button
               onClick={() => setMobileOpen(v => !v)}
@@ -117,12 +117,12 @@ export default function Navbar({ isDark, toggleTheme }) {
                 {item.label}
               </button>
             ))}
-            <a
-              href="mailto:ebardojeremyelmo@gmail.com"
-              className="mt-2 text-center py-2 font-mono text-xs text-cyber-400 border border-cyber-500/40 rounded"
+            <button
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              className="hidden md:flex items-center gap-2 px-4 py-1.5 font-mono text-xs text-cyber-400 border border-cyber-500/40 rounded clip-corner hover:bg-cyber-500/10 hover:border-cyber-400 transition-all"
             >
-              Hire Me
-            </a>
+               Hire Me
+          </button>
           </motion.div>
         )}
       </AnimatePresence>

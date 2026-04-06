@@ -41,12 +41,23 @@ export default function Contact() {
   }
 
   const handleSubmit = async (e) => {
+  e.preventDefault()  // ← stops page from refreshing
+  setStatus('sending')
+
+  try {
     const res = await fetch('https://formspree.io/f/mojpylbb', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(form),
-  })
-if (!res.ok) throw new Error('Failed')
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form),
+    })
+
+    if (!res.ok) throw new Error('Failed')
+
+    setStatus('sent')
+    setForm({ name: '', email: '', message: '' })
+  } catch (err) {
+    setStatus('error')
+    }
   }
 
   return (
