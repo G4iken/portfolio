@@ -26,7 +26,7 @@ export const projects = [
     id: 1,
     title: 'Aegis Smart Lock',
     category: 'IoT',
-    description: 'ESP32-based smart door lock system with keypad PIN entry, LCD feedback, servo actuation, and a Node.js/Express backend with a web dashboard. Full-stack IoT solution from firmware to UI.',
+    description: 'ESP32-based smart door lock...',
     tech: ['ESP32', 'C++', 'Node.js', 'Express', 'SQLite', 'HTML', 'CSS'],
     highlights: [
       '4×4 matrix keypad with I2C LCD display',
@@ -38,12 +38,14 @@ export const projects = [
     color: 'from-cyan-500 to-teal-600',
     featured: true,
     category_tag: 'IoT',
+    demo: null,
+    repo: 'https://github.com/G4iken',
   },
   {
     id: 2,
     title: 'Fleur-c-Print',
     category: 'Web',
-    description: 'Full-featured printing shop website with product catalog, order management, and customer-facing interface. Built with modern web technologies for a real local business.',
+    description: 'Full-featured printing shop website...',
     tech: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
     highlights: [
       'Product catalog with dynamic pricing',
@@ -55,12 +57,14 @@ export const projects = [
     color: 'from-violet-500 to-purple-600',
     featured: true,
     category_tag: 'Web',
+    demo: null,
+    repo: 'https://github.com/G4iken',
   },
   {
     id: 3,
     title: 'Bioplastic Production Thesis',
     category: 'Research',
-    description: 'Research-backed thesis project investigating bioplastic production processes, data analysis, and experimental documentation. Combines scientific rigor with engineering methodology.',
+    description: 'Research-backed thesis project...',
     tech: ['Research', 'Data Analysis', 'Documentation', 'Python'],
     highlights: [
       'Experimental design and execution',
@@ -72,12 +76,14 @@ export const projects = [
     color: 'from-green-500 to-emerald-600',
     featured: true,
     category_tag: 'Research',
+    demo: null,
+    repo: null,
   },
   {
     id: 4,
     title: 'SAP-1 Computer Architecture',
     category: 'Systems',
-    description: 'Implementation of the Simple As Possible (SAP-1) 8-bit computer architecture from Ben Eater\'s design — registers, ALU, control logic, and instruction set, built as a fully working simulation.',
+    description: 'Implementation of the SAP-1 8-bit computer...',
     tech: ['Digital Logic', 'Assembly', 'Circuit Design', 'Hardware'],
     highlights: [
       '8-bit accumulator-based architecture',
@@ -89,12 +95,14 @@ export const projects = [
     color: 'from-orange-500 to-amber-600',
     featured: false,
     category_tag: 'Systems',
+    demo: null,
+    repo: 'https://github.com/G4iken',
   },
   {
     id: 5,
     title: 'ATM Banking System',
     category: 'Systems',
-    description: 'Console-based ATM simulation in C featuring account management, PIN authentication, balance inquiry, deposits, withdrawals, and transfer operations with persistent file storage.',
+    description: 'Console-based ATM simulation in C...',
     tech: ['C', 'File I/O', 'Data Structures'],
     highlights: [
       'PIN-based authentication',
@@ -106,12 +114,14 @@ export const projects = [
     color: 'from-blue-500 to-indigo-600',
     featured: false,
     category_tag: 'Systems',
+    demo: null,
+    repo: 'https://github.com/G4iken',
   },
   {
     id: 6,
     title: 'Java Numerical Methods',
     category: 'Systems',
-    description: 'Collection of numerical methods implemented in Java — bisection, Newton-Raphson, Gauss elimination, LU decomposition, and more. Academic project with clean OOP architecture.',
+    description: 'Collection of numerical methods in Java...',
     tech: ['Java', 'Mathematics', 'OOP', 'Algorithms'],
     highlights: [
       'Root-finding algorithms',
@@ -123,12 +133,14 @@ export const projects = [
     color: 'from-pink-500 to-rose-600',
     featured: false,
     category_tag: 'Systems',
+    demo: null,
+    repo: 'https://github.com/G4iken',
   },
   {
     id: 7,
     title: 'Ping Pong Game',
     category: 'Games',
-    description: 'Classic Pong game implemented in Python using pygame — two-player mode, AI opponent, score tracking, and smooth collision physics.',
+    description: 'Classic Pong game in Python...',
     tech: ['Python', 'Pygame', 'Game Dev'],
     highlights: [
       'Two-player and AI modes',
@@ -140,12 +152,14 @@ export const projects = [
     color: 'from-yellow-500 to-orange-500',
     featured: false,
     category_tag: 'Games',
+    demo: null,
+    repo: 'https://github.com/G4iken',
   },
   {
     id: 8,
     title: 'Scribble Jump Game',
     category: 'Games',
-    description: 'Vertical endless-runner platformer game in Java inspired by Doodle Jump — procedurally generated platforms, physics simulation, and increasing difficulty.',
+    description: 'Vertical endless-runner platformer in Java...',
     tech: ['Java', 'Swing/AWT', 'Game Physics', 'OOP'],
     highlights: [
       'Procedurally generated platforms',
@@ -157,12 +171,14 @@ export const projects = [
     color: 'from-fuchsia-500 to-pink-600',
     featured: false,
     category_tag: 'Games',
+    demo: null,
+    repo: 'https://github.com/G4iken',
   },
   {
     id: 9,
     title: 'Simple Order System',
     category: 'Web',
-    description: 'PHP + MySQL order management system with product listing, cart functionality, order placement, and admin order tracking.',
+    description: 'PHP + MySQL order management system...',
     tech: ['PHP', 'MySQL', 'HTML', 'CSS'],
     highlights: [
       'Product catalog & cart',
@@ -174,12 +190,14 @@ export const projects = [
     color: 'from-teal-500 to-cyan-600',
     featured: false,
     category_tag: 'Web',
+    demo: null,
+    repo: 'https://github.com/G4iken',
   },
   {
     id: 10,
     title: 'Blog Posting Website',
     category: 'Web',
-    description: 'Dynamic blogging platform built with PHP, Tailwind CSS, and JavaScript — user authentication, CRUD posts, rich-text editor, and responsive layout.',
+    description: 'Dynamic blogging platform...',
     tech: ['PHP', 'Tailwind CSS', 'JavaScript', 'MySQL'],
     highlights: [
       'User auth with sessions',
@@ -191,12 +209,14 @@ export const projects = [
     color: 'from-sky-500 to-blue-600',
     featured: false,
     category_tag: 'Web',
+    demo: null,
+    repo: 'https://github.com/G4iken',
   },
   {
     id: 11,
     title: 'Fire Alarm Circuit System',
     category: 'IoT',
-    description: 'Hardware fire alarm circuit using temperature sensors, smoke detectors, and alarm actuators. Designed and simulated with real-world safety circuit principles.',
+    description: 'Hardware fire alarm circuit...',
     tech: ['Circuit Design', 'Sensors', 'Electronics', 'Simulation'],
     highlights: [
       'Smoke & heat sensor integration',
@@ -208,6 +228,8 @@ export const projects = [
     color: 'from-red-500 to-orange-600',
     featured: false,
     category_tag: 'IoT',
+    demo: null,
+    repo: null,
   },
 ]
 

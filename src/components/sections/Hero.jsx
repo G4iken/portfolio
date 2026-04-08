@@ -1,48 +1,106 @@
-import { motion } from 'framer-motion'
-import { ArrowDown, Github, Mail, ExternalLink } from 'lucide-react'
-import GlitchText from '../ui/GlitchText'
-import { fadeUp, fadeIn } from '../../utils/motion'
-import { profile } from '../../data'
+import { motion } from "framer-motion";
+import {Github, Mail, ExternalLink, Download } from "lucide-react";
+import GlitchText from "../ui/GlitchText";
+import TypewriterText from "../ui/TypewriterText";
+import { fadeUp, fadeIn } from "../../utils/motion";
+import { profile } from "../../data";
 
-const ROLES = ['Software Developer', 'IoT Engineer', 'Embedded Systems', 'Problem Solver']
+
+const ROLES = [
+  "Software Developer",
+  "IoT Engineer",
+  "Embedded Systems Dev",
+  "Web Developer",
+  "Problem Solver",
+];
 
 export default function Hero() {
-  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  const scrollTo = (id) =>
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#050810]"
     >
       {/* Background grid */}
       <div
-        className="absolute inset-0 bg-grid-pattern bg-grid opacity-100"
-        style={{ maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)' }}
+        className="absolute inset-0 opacity-100"
+        style={{
+          backgroundImage: `linear-gradient(rgba(18,184,148,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(18,184,148,0.05) 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
+          maskImage:
+            "radial-gradient(ellipse at center, black 40%, transparent 80%)",
+        }}
       />
 
       {/* Glow orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full bg-cyber-500/8 blur-[120px] animate-glow-pulse pointer-events-none" />
-      <div className="absolute bottom-1/3 left-1/4 w-[300px] h-[300px] rounded-full bg-indigo-500/6 blur-[100px] pointer-events-none" />
+      <div
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full opacity-8 blur-[120px] animate-glow-pulse pointer-events-none"
+        style={{ backgroundColor: "rgba(18,184,148,0.08)" }}
+      />
 
-      {/* Scan line */}
+      {/* Scan line effect */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-cyber-400/30 to-transparent animate-scan" />
+        <div
+          className="w-full h-px animate-scan"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, rgba(45,214,173,0.3), transparent)",
+          }}
+        />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center pt-20 sm:pt-24 pb-16">
         {/* Status badge */}
         <motion.div
           variants={fadeIn}
           initial="hidden"
           animate="visible"
           custom={0}
-          className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full border border-cyber-500/30 bg-cyber-500/5 text-cyber-400 font-mono text-xs tracking-widest"
+          className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 mb-6 rounded-full border font-mono text-[10px] sm:text-xs tracking-widest"
+          style={{
+            borderColor: "rgba(18,184,148,0.3)",
+            backgroundColor: "rgba(18,184,148,0.05)",
+            color: "#2dd6ad",
+          }}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-cyber-400 animate-pulse" />
+          <span
+            className="w-1.5 h-1.5 rounded-full animate-pulse"
+            style={{ backgroundColor: "#2dd6ad" }}
+          />
           AVAILABLE FOR OPPORTUNITIES
         </motion.div>
 
-        {/* Name */}
+        {/* Profile photo */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          custom={0.5}
+          className="flex justify-center mb-5"
+        >
+          <div className="relative">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-2 border-[#12b894]/50 shadow-lg shadow-[#12b894]/20">
+              <img
+                src="/profile.jpg"
+                alt="Jeremy Elmo D. Ebardo"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.style.display = "none";
+                  e.target.parentElement.innerHTML = `<div class="w-full h-full flex items-center justify-center text-3xl font-display font-bold text-[#2dd6ad]" style="background:rgba(18,184,148,0.1)">JE</div>`;
+                }}
+              />
+            </div>
+            <div
+              className="absolute bottom-1 right-1 w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 animate-pulse"
+              style={{ backgroundColor: "#2dd6ad", borderColor: "#050810" }}
+            />
+          </div>
+        </motion.div>
+
+        {/* Name - Optimized for long length */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -50,26 +108,45 @@ export default function Hero() {
           custom={1}
           className="mb-4"
         >
-          <h1 className="font-display text-5xl sm:text-7xl md:text-8xl font-extrabold leading-none tracking-tight">
-            <span className="text-white dark:text-white text-slate-900">Jeremy</span>
-            <br />
-            <span className="relative">
-              <span className="text-cyber-400 glow-text">Ebardo</span>
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-none tracking-tight">
+            <span className="text-white block">JEREMY ELMO</span>
+            <span
+              className="block mt-1 md:mt-2"
+              style={{
+                color: "#2dd6ad",
+                textShadow: "0 0 20px rgba(18,184,148,0.5)",
+              }}
+            >
+              D. EBARDO
             </span>
           </h1>
         </motion.div>
 
-        {/* Glitch role */}
+        {/* Typewriter */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate="visible"
           custom={2}
-          className="mb-6"
+          className="mb-2 h-6"
+        >
+          <TypewriterText
+            words={ROLES}
+            className="font-mono text-sm sm:text-base md:text-lg text-slate-400"
+          />
+        </motion.div>
+
+        {/* Glitch subtitle */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          custom={2.5}
+          className="mb-4"
         >
           <GlitchText
             text="[ Computer Engineering Student ]"
-            className="text-slate-400 text-base md:text-lg tracking-widest"
+            className="text-slate-500 text-[11px] sm:text-sm tracking-widest"
           />
         </motion.div>
 
@@ -79,86 +156,110 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           custom={3}
-          className="max-w-2xl mx-auto text-slate-400 text-base md:text-lg leading-relaxed mb-10"
+          className="max-w-2xl mx-auto text-slate-400 text-sm md:text-base leading-relaxed mb-8 px-2"
         >
-          Building real-world systems at the intersection of{' '}
-          <span className="text-cyber-400">web</span>,{' '}
-          <span className="text-cyber-400">embedded</span>, and{' '}
-          <span className="text-cyber-400">IoT</span> technologies.
-          Based in{' '}
+          Building real-world systems at the intersection of{" "}
+          <span style={{ color: "#2dd6ad" }}>web</span>,{" "}
+          <span style={{ color: "#2dd6ad" }}>embedded</span>, and{" "}
+          <span style={{ color: "#2dd6ad" }}>IoT</span> technologies. Based in{" "}
           <span className="text-slate-300">Bulacan, Philippines</span>.
         </motion.p>
 
-        {/* CTAs */}
+        {/* CTAs - Stacked on mobile, inline on desktop */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate="visible"
           custom={4}
-          className="flex flex-wrap items-center justify-center gap-4 mb-16"
+          className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 mb-10 w-full sm:w-auto px-4 sm:px-0"
         >
           <button
-            onClick={() => scrollTo('projects')}
-            className="group relative px-7 py-3 font-mono text-sm font-medium text-void-900 bg-cyber-400 clip-corner hover:bg-cyber-300 transition-all duration-200 overflow-hidden"
+            onClick={() => scrollTo("projects")}
+            className="group w-full sm:w-auto justify-center px-6 py-3 sm:py-2.5 font-mono text-sm font-medium text-[#050810] clip-corner hover:opacity-90 transition-all duration-200 flex items-center gap-2"
+            style={{ backgroundColor: "#2dd6ad" }}
           >
-            <span className="relative z-10 flex items-center gap-2">
-              View Projects
-              <ExternalLink size={14} className="group-hover:translate-x-1 transition-transform" />
-            </span>
-          </button>
-
-          <button
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-7 py-3 font-mono text-sm text-cyber-400 border border-cyber-500/50 clip-corner hover:bg-cyber-500/10 hover:border-cyber-400 transition-all duration-200 flex items-center gap-2"
-          >
-          <Mail size={14} />
-            Contact Me
+            View Projects{" "}
+            <ExternalLink
+              size={14}
+              className="group-hover:translate-x-1 transition-transform"
+            />
           </button>
 
           <a
-            href={profile.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-7 py-3 font-mono text-sm text-slate-400 border border-slate-700 clip-corner hover:text-slate-200 hover:border-slate-500 transition-all duration-200 flex items-center gap-2"
+            href="/resume.pdf"
+            download="Jeremy_Ebardo_Resume.pdf"
+            className="w-full sm:w-auto justify-center px-6 py-3 sm:py-2.5 font-mono text-sm clip-corner border transition-all duration-200 flex items-center gap-2 hover:opacity-80"
+            style={{
+              color: "#2dd6ad",
+              borderColor: "rgba(18,184,148,0.5)",
+              backgroundColor: "rgba(18,184,148,0.05)",
+            }}
           >
-            <Github size={14} />
-            GitHub
+            <Download size={14} /> Resume
           </a>
+
+          <div className="flex w-full sm:w-auto gap-3">
+            {/* CONTACT BUTTON - DIRECT TO GMAIL WEB */}
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=ebardojeremyelmo@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 justify-center px-6 py-3 sm:py-2.5 font-mono text-sm clip-corner border transition-all duration-200 flex items-center gap-2 hover:opacity-80 text-[#94a3b8]"
+              style={{
+                borderColor: "rgba(100,116,139,0.4)",
+                display: "flex",
+                cursor: "pointer",
+              }}
+            >
+              <Mail size={14} />
+              <span>Contact</span>
+            </a>
+
+            {/* GITHUB BUTTON */}
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 justify-center px-6 py-3 sm:py-2.5 font-mono text-sm clip-corner border transition-all duration-200 flex items-center gap-2 hover:opacity-80 text-[#94a3b8]"
+              style={{ borderColor: "rgba(100,116,139,0.4)" }}
+            >
+              <Github size={14} />
+              <span>GitHub</span>
+            </a>
+          </div>
         </motion.div>
 
-        {/* Stats row */}
+        {/* Stats - Grid layout for mobile stability */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate="visible"
           custom={5}
-          className="flex flex-wrap justify-center gap-10 text-center"
+          className="grid grid-cols-2 md:flex md:flex-wrap justify-center gap-6 md:gap-10 text-center"
         >
           {[
-            { value: '11+', label: 'Projects Built' },
-            { value: '7+', label: 'Languages' },
-            { value: '3+', label: 'Years Learning' },
-            { value: '1st', label: 'Academic Award' },
+            { value: "11+", label: "Projects Built" },
+            { value: "7+", label: "Languages" },
+            { value: "3+", label: "Years Learning" },
+            { value: "1st", label: "Academic Award" },
           ].map((stat) => (
             <div key={stat.label}>
-              <p className="font-display text-3xl font-bold text-cyber-400 glow-text">{stat.value}</p>
-              <p className="font-mono text-xs text-slate-500 tracking-wider mt-1">{stat.label}</p>
+              <p
+                className="font-display text-2xl md:text-3xl font-bold"
+                style={{
+                  color: "#2dd6ad",
+                  textShadow: "0 0 20px rgba(18,184,148,0.5)",
+                }}
+              >
+                {stat.value}
+              </p>
+              <p className="font-mono text-[10px] md:text-xs text-slate-500 tracking-wider mt-1">
+                {stat.label}
+              </p>
             </div>
           ))}
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.button
-        onClick={() => scrollTo('about')}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-500 hover:text-cyber-400 transition-colors animate-float"
-      >
-        <span className="font-mono text-xs tracking-widest">SCROLL</span>
-        <ArrowDown size={16} />
-      </motion.button>
     </section>
-  )
+  );
 }
