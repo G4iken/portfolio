@@ -49,29 +49,25 @@ export default function ChatBot() {
     setLoading(true)
 
     try {
-      const res = await fetch("/api/chat", {
-  method: "POST",
-  body: JSON.stringify({ message: input }),
-});
+  const res = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: input.trim(), repos })
+  })
 
-const data = await res.json();
-console.log("API RESPONSE:", data); // 👈 MUST ADD
+  const data = await res.json()
 
-let reply = "";
+  if (!res.ok) {
+    setMessages([...updated, { role: 'bot', text: `Error: ${data.error}` }])
+    return
+  }
 
-if (data.candidates && data.candidates.length > 0) {
-  reply = data.candidates[0]?.content?.parts?.[0]?.text;
-} else if (data.error) {
-  reply = "Error: " + data.error;
-} else {
-  reply = "No response from AI";
+  setMessages([...updated, { role: 'bot', text: data.reply }])
+} catch {
+  setMessages([...updated, { role: 'bot', text: 'Error fetching response. Please try again.' }])
+} finally {
+  setLoading(false)
 }
-
-setMessages([...updatedMessages, { role: "bot", text: reply }]);} catch {
-      setMessages([...updated, { role: 'bot', text: 'Error fetching response. Please try again.' }])
-    } finally {
-      setLoading(false)
-    }
   }
 
   const handleKey = (e) => {
@@ -83,7 +79,6 @@ setMessages([...updatedMessages, { role: "bot", text: reply }]);} catch {
 
   return (
     <>
-      {/* Toggle button */}
       <motion.button
         onClick={() => setOpen(v => !v)}
         whileHover={{ scale: 1.05 }}
@@ -99,7 +94,6 @@ setMessages([...updatedMessages, { role: "bot", text: reply }]);} catch {
         </AnimatePresence>
       </motion.button>
 
-      {/* Chat window */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -110,9 +104,10 @@ setMessages([...updatedMessages, { role: "bot", text: reply }]);} catch {
             className="fixed z-50 flex flex-col overflow-hidden rounded-2xl shadow-2xl shadow-black/50"
             style={{
               bottom: '5rem',
-              right: '1.25rem',
-              width: 'min(380px, calc(100vw - 2.5rem))',
-              height: 'min(500px, calc(100vh - 7rem))',
+              right: '0.75rem',
+              left: 'auto',
+              width: 'min(360px, calc(100vw - 1.5rem))',
+              height: 'min(500px, calc(100vh - 8rem))',
               background: 'rgba(9, 13, 24, 0.97)',
               border: '1px solid rgba(18, 184, 148, 0.2)',
             }}
@@ -126,7 +121,7 @@ setMessages([...updatedMessages, { role: "bot", text: reply }]);} catch {
                 <p className="font-mono text-sm font-semibold text-white leading-none">Jeremy's Assistant</p>
                 <p className="font-mono text-xs text-cyber-400 flex items-center gap-1 mt-0.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-cyber-400 animate-pulse inline-block" />
-                  Powered by Gemini
+                  Powered by Nvidia
                 </p>
               </div>
               <button
@@ -141,13 +136,11 @@ setMessages([...updatedMessages, { role: "bot", text: reply }]);} catch {
             <div className="flex-1 overflow-y-auto p-3 space-y-3 min-h-0">
               {messages.map((msg, i) => (
                 <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div
-                    className={`px-3 py-2 rounded-xl text-sm leading-relaxed max-w-[85%] break-words ${
-                      msg.role === 'user'
-                        ? 'bg-cyber-500 text-void-900 font-medium rounded-br-sm'
-                        : 'bg-void-700/80 text-slate-300 border border-void-600/60 rounded-bl-sm'
-                    }`}
-                  >
+                  <div className={`px-3 py-2 rounded-xl text-sm leading-relaxed max-w-[85%] break-words ${
+                    msg.role === 'user'
+                      ? 'bg-cyber-500 text-void-900 font-medium rounded-br-sm'
+                      : 'bg-void-700/80 text-slate-300 border border-void-600/60 rounded-bl-sm'
+                  }`}>
                     {msg.text}
                   </div>
                 </div>
@@ -155,7 +148,7 @@ setMessages([...updatedMessages, { role: "bot", text: reply }]);} catch {
 
               {loading && (
                 <div className="flex justify-start">
-                  <div className="bg-void-700/80 border border-void-600/60 px-3 py-2 rounded-xl rounded-bl-sm flex items-center gap-2">
+                  <div className="bg-void-700/80 border border-void-600/60 px-3 py-2 rounded-xl rounded-bl-sm">
                     <span className="flex gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-cyber-400 animate-bounce" style={{ animationDelay: '0ms' }} />
                       <span className="w-1.5 h-1.5 rounded-full bg-cyber-400 animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -164,7 +157,6 @@ setMessages([...updatedMessages, { role: "bot", text: reply }]);} catch {
                   </div>
                 </div>
               )}
-
               <div ref={bottomRef} />
             </div>
 
@@ -176,11 +168,11 @@ setMessages([...updatedMessages, { role: "bot", text: reply }]);} catch {
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={handleKey}
                 placeholder="Ask about Jeremy..."
-                className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-void-700/60 border border-void-500 text-slate-200 placeholder-slate-600 font-body text-sm focus:outline-none focus:border-cyber-500/60 transition-all"
+                className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-void-700/60 border border-void-500 text-slate-200 placeholder-slate-600 text-sm focus:outline-none focus:border-cyber-500/60 transition-all"
               />
               <button
                 onClick={startVoice}
-                className="w-9 h-9 flex-shrink-0 flex items-center justify-center rounded-lg bg-void-700 border border-void-500 text-slate-400 hover:text-cyber-400 hover:border-cyber-500/40 transition-all"
+                className="w-9 h-9 flex-shrink-0 flex items-center justify-center rounded-lg bg-void-700 border border-void-500 text-slate-400 hover:text-cyber-400 transition-all"
                 title="Voice input"
               >
                 <Mic size={15} />
