@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Moon, Sun, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { useScrollSpy } from '../../hooks/useScrollSpy'
 
 const NAV_ITEMS = [
@@ -71,14 +71,6 @@ export default function Navbar({ isDark, toggleTheme }) {
 
           {/* Actions */}
           <div className="flex items-center gap-3">
-            <button
-              onClick={toggleTheme}
-              className="w-9 h-9 flex items-center justify-center rounded-lg text-slate-400 hover:text-cyber-400 hover:bg-cyber-500/10 transition-all"
-              aria-label="Toggle theme"
-            >
-              {isDark ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
-
             <button
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               className="hidden md:flex items-center gap-2 px-4 py-1.5 font-mono text-xs text-cyber-400 border border-cyber-500/40 rounded clip-corner hover:bg-cyber-500/10 hover:border-cyber-400 transition-all"

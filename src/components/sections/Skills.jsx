@@ -20,9 +20,10 @@ const SKILL_DATA = [
   ]},
   { category: 'Hardware / IoT', skills: [
     { name: 'ESP32', level: 85, color: '#2dd6ad' },
+    { name: 'Raspberry pi', level: 82, color: '#06b6d4' },
+    { name: 'Arduino', level: 80, color: '#00979d' },
     { name: 'Embedded Systems', level: 78, color: '#ff6b35' },
     { name: 'Circuit Design', level: 72, color: '#ffd700' },
-    { name: 'Arduino', level: 80, color: '#00979d' },
   ]},
 ]
 

@@ -1,10 +1,9 @@
 import { motion } from "framer-motion";
-import {Github, Mail, ExternalLink, Download } from "lucide-react";
+import { Github, Mail, ExternalLink, Download } from "lucide-react";
 import GlitchText from "../ui/GlitchText";
 import TypewriterText from "../ui/TypewriterText";
 import { fadeUp, fadeIn } from "../../utils/motion";
 import { profile } from "../../data";
-
 
 const ROLES = [
   "Software Developer",
@@ -73,30 +72,82 @@ export default function Hero() {
           AVAILABLE FOR OPPORTUNITIES
         </motion.div>
 
-        {/* Profile photo */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate="visible"
           custom={0.5}
-          className="flex justify-center mb-5"
+          className="flex justify-center mb-8"
         >
-          <div className="relative">
-            <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-2 border-[#12b894]/50 shadow-lg shadow-[#12b894]/20">
+          <div className="relative group cursor-pointer">
+            {/* Glow ring on hover */}
+            <div
+              className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 blur-md scale-110"
+              style={{
+                background:
+                  "radial-gradient(circle, rgba(18,184,148,0.4), transparent)",
+              }}
+            />
+
+            {/* Photo container */}
+            <div
+              className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-2 transition-all duration-500 group-hover:border-cyber-400 group-hover:shadow-lg group-hover:shadow-cyber-500/40"
+              style={{ borderColor: "rgba(18,184,148,0.5)" }}
+            >
+              {/* Default photo */}
               <img
                 src="/profile.jpg"
                 alt="Jeremy Elmo D. Ebardo"
-                className="w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:opacity-0 group-hover:scale-110"
+              />
+
+              {/* Hover photo */}
+              <img
+                src="/profile-hover.jpg"
+                alt="Jeremy Elmo D. Ebardo Hover"
+                className="absolute inset-0 w-full h-full object-cover transition-all duration-500 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100"
                 onError={(e) => {
+                  // fallback if no second photo — shows name overlay instead
                   e.target.style.display = "none";
-                  e.target.parentElement.innerHTML = `<div class="w-full h-full flex items-center justify-center text-3xl font-display font-bold text-[#2dd6ad]" style="background:rgba(18,184,148,0.1)">JE</div>`;
                 }}
               />
+
+              {/* Hover overlay — shows if no second photo */}
+              <div
+                className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500"
+                style={{ background: "rgba(5,8,16,0.75)" }}
+              >
+              </div>
             </div>
+
+            {/* Rotating border ring on hover */}
             <div
-              className="absolute bottom-1 right-1 w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 animate-pulse"
+              className="absolute inset-0 rounded-full border-2 border-dashed opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:animate-spin"
+              style={{
+                borderColor: "rgba(18,184,148,0.4)",
+                animationDuration: "8s",
+              }}
+            />
+
+            {/* Online dot */}
+            <div
+              className="absolute bottom-1 right-1 w-4 h-4 rounded-full border-2 animate-pulse z-10"
               style={{ backgroundColor: "#2dd6ad", borderColor: "#050810" }}
             />
+
+            {/* Tooltip on hover */}
+            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
+              <span
+                className="font-mono text-[10px] px-2 py-1 rounded-full"
+                style={{
+                  background: "rgba(9,13,24,0.9)",
+                  border: "1px solid rgba(18,184,148,0.2)",
+                  color: "#2dd6ad",
+                }}
+              >
+                👋 That's me!
+              </span>
+            </div>
           </div>
         </motion.div>
 
@@ -238,10 +289,10 @@ export default function Hero() {
           className="grid grid-cols-2 md:flex md:flex-wrap justify-center gap-6 md:gap-10 text-center"
         >
           {[
-            { value: "11+", label: "Projects Built" },
+            { value: "10+", label: "Projects Built" },
             { value: "7+", label: "Languages" },
-            { value: "3+", label: "Years Learning" },
-            { value: "1st", label: "Academic Award" },
+            { value: "4+", label: "Years Learning" },
+            { value: "1", label: "Academic Award" },
           ].map((stat) => (
             <div key={stat.label}>
               <p

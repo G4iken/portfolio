@@ -33,9 +33,9 @@ const CERTIFICATES = [
   },
   // Add your real certificates here
   {
-    title: 'Add Your Certificate Here',
-    issuer: 'e.g. Coursera, Cisco, AWS',
-    date: '2024',
+    title: 'Computer Vision Onramp, NVIDIA Deep Learning Institute, Huawei ICT Academy, Overview of AI, AWS Cloud Practitioner, Cisco CCNA',
+    issuer: 'Coursera, Cisco, AWS, Nvidia, Huawei',
+    date: '2023-Present',
     type: 'Certification',
     color: 'from-violet-500 to-purple-600',
     icon: '📜',
